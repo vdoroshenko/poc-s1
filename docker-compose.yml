@@ -1,0 +1,24 @@
+version: '2.1'
+services:
+  s1-service:
+    image: abc/s1-service
+    restart: always
+    depends_on:
+      event-setup-postgres:
+        condition: service_healthy
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+#  s1-postgres:
+#    environment:
+#      POSTGRES_USER: $EVENT_SETUP_PSUSER
+#      POSTGRES_PASSWORD: $EVENT_SETUP_PSPASSWORD
+#      POSTGRES_DB: $EVENT_SETUP_PSDB
+#    image: abc/postgres
+#    restart: always
+#    logging:
+#      options:
+#        max-size: "10m"
+#        max-file: "10"

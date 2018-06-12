@@ -1,0 +1,57 @@
+server:
+  servlet:
+    context-path: /s1
+  port: ${SERVLET_PORT}
+
+spring:
+  application:
+    name: s1-service
+  profiles:
+    active: default
+  # Disable cloud bus
+  cloud:
+    bus:
+      enabled: false
+  # Disable AMQP
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration,org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+
+#logging:
+#  level:
+#    ROOT: DEBUG
+
+logging:
+  config: classpath:logback.xml
+
+# disable security for spring actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  #security:
+  #  enabled: false
+
+hystrix:
+  threadpool:
+    default:
+      # Maximum number of concurrent requests when using thread pools (Default: 10)
+      coreSize: 100
+      # Maximum LinkedBlockingQueue size - -1 for using SynchronousQueue (Default: -1)
+      maxQueueSize: 1100
+      # Queue size rejection threshold (Default: 5)
+      queueSizeRejectionThreshold: 1000
+  command:
+    default:
+      fallback:
+        enabled: true
+      circuitBreaker:
+        sleepWindowInMilliseconds: 30000
+        requestVolumeThreshold: 6
+      execution:
+        timeout:
+          enabled: false
+        isolation:
+          strategy: THREAD
+          thread:
+            timeoutInMilliseconds: 20000

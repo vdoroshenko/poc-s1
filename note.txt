@@ -1,0 +1,18 @@
+JSON Merge Patch
+https://tools.ietf.org/html/rfc7396
+JavaScript Object Notation (JSON) Patch
+https://tools.ietf.org/html/rfc6902
+
+IMPLEMENTATION
+1
+JSR 374
+https://javaee.github.io/jsonp/
+https://javadoc.io/doc/javax.json/javax.json-api/1.1.2
+~130KB
+2
+https://github.com/flipkart-incubator/zjsonpatch
+~30KB
+3
+https://github.com/java-json-tools/json-patch
+4
+https://github.com/ebay/bsonpatch

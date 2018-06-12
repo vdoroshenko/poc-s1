@@ -1,0 +1,12 @@
+version: '2.1'
+services:
+  s1-service:
+    build: event-setup
+    # Remap port
+    ports:
+      - 8080:8080
+
+#  s1-postgres:
+#    build: postgres
+#    ports:
+#      - 5432:5432

@@ -1,0 +1,101 @@
+buildscript {
+    ext {
+        springBootVersion = '2.0.1.RELEASE'
+    }
+    repositories {
+	    mavenCentral()
+        jcenter()
+    }
+    dependencies {
+	    classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath('se.transmode.gradle:gradle-docker:1.2')
+        classpath('org.codehaus.groovy:groovy-all:2.3.6')
+        classpath('org.jfrog.buildinfo:build-info-extractor-gradle:4.0.0')
+        classpath('com.bmuschko:gradle-docker-plugin:3.2.1')
+    }
+}
+
+plugins {
+    id 'org.sonarqube' version '2.5'
+    id 'net.ltgt.apt' version '0.10'
+}
+
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+apply plugin: 'groovy'
+apply plugin: 'docker'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.abcfinancial.poc'
+version = '0.0.1'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "https://repo.spring.io/libs-release" }
+    maven { url "https://repo.spring.io/libs-snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
+}
+
+
+ext {
+    springCloudVersion = 'Finchley.RC2'
+}
+
+dependencies {
+    //// COMPILE
+    compileOnly group: 'org.projectlombok', name: 'lombok'
+
+    apt 'org.projectlombok:lombok'
+
+    // Enable Spring MVC
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+
+    // Enable Flux
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-webflux'
+
+    // Production metrics for Spring Boot
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
+
+    // Enable Eureka client
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client'
+
+    // Enable Open Feign
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign'
+
+    // Enable OAuth2
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-oauth2'
+
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat'
+
+    // JSR 374 implementation JavaEE
+    compile 'javax.json:javax.json-api:1.1.2'
+    compile 'org.glassfish:javax.json:1.1.2'
+
+    // rfc6902 implementation (patch)
+    compile 'com.flipkart.zjsonpatch:zjsonpatch:0.4.4'
+
+    //// RUNTIME
+    runtime group: 'org.postgresql', name: 'postgresql'
+
+    //// TEST
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+
+    testCompile group: 'com.jayway.jsonpath', name: 'json-path'
+
+    testRuntime group: 'com.h2database', name: 'h2'
+
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+jar {
+    zip64 = true
+}

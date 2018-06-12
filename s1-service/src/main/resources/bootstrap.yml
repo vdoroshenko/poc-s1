@@ -1,0 +1,4 @@
+# Disable discovery service Eureka(part of Spring Cloud infrastructure services)
+eureka:
+  client:
+    enabled: false
