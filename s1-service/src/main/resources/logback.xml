@@ -3,7 +3,7 @@
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
     <appender name="ROLLIN" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${DMB_LOG_FILE}</file>
+        <file>${S1_LOG_FILE}</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover -->
             <fileNamePattern>${DMB_LOG_FILE}.%d{yyyy-MM-dd}.log</fileNamePattern>

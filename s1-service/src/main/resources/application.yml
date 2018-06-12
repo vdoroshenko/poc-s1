@@ -16,12 +16,12 @@ spring:
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration,org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 
-#logging:
-#  level:
-#    ROOT: DEBUG
-
 logging:
-  config: classpath:logback.xml
+  level:
+    ROOT: DEBUG
+
+#logging:
+#  config: classpath:logback.xml
 
 # disable security for spring actuator
 management:
